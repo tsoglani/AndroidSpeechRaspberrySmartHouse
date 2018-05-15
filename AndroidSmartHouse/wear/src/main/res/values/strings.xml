@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">SmartHouse</string>
+    <string name="hello_round">Hello Round World!</string>
+    <string name="hello_square">Hello Square World!</string>
+    <string name="title_activity_swift">SwiftActivity</string>
+    <string name="title_activity_main">SmartHouse</string>
+    <string name="title_activity_history">History</string>
+</resources>

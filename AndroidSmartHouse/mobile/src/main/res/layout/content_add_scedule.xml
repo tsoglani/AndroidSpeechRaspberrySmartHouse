@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relative_update"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".AddSceduleActivity"
+    tools:showIn="@layout/activity_add_scedule">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:id="@+id/linearLayout6"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="Choose Command"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <Spinner
+            android:id="@+id/tab_command_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:popupBackground="@color/transparent_white_percent_90"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    </LinearLayout>
+
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/linearLayout6"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout7">
+        <TextView
+            android:id="@+id/device_id_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Devide : ID"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            />
+        <Spinner
+            android:id="@+id/deviceID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:popupBackground="@color/transparent_white_percent_90"
+
+            />
+    </LinearLayout>
+
+
+
+
+
+        <!--<Button-->
+            <!--android:id="@+id/minus_hour"-->
+            <!--android:layout_width="50dp"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:layout_below="@+id/hour_text"-->
+            <!--android:layout_toLeftOf="@+id/plus_minutes"-->
+            <!--android:layout_toStartOf="@+id/plus_minutes"-->
+            <!--android:onClick="minusHourFunction"-->
+            <!--android:text="-" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/hour_text"-->
+            <!--android:layout_width="50dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:gravity="center"-->
+            <!--android:text="00"-->
+            <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
+
+
+        <com.phillipcalvin.iconbutton.IconButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/countdown_timer"
+            android:drawableLeft="@drawable/date2"
+            android:text="00:00:00   "
+            app:iconPadding="10dp"
+android:layout_marginTop="30dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:onClick="timeToUpdateFunction"
+            android:layout_below="@+id/active"
+            android:layout_centerHorizontal="true" />
+        <!--<Button-->
+            <!--android:id="@+id/plus_hour"-->
+            <!--android:layout_width="50dp"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:onClick="addHourFunction"-->
+            <!--android:text="+" />-->
+
+        <!--<Button-->
+            <!--android:id="@+id/plus_minutes"-->
+            <!--android:layout_width="50dp"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:layout_alignBottom="@+id/plus_hour"-->
+            <!--android:layout_alignTop="@+id/plus_hour"-->
+            <!--android:layout_toEndOf="@+id/hour_text"-->
+            <!--android:layout_toRightOf="@+id/hour_text"-->
+            <!--android:onClick="addMinutesFunction"-->
+            <!--android:text="+" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/minutes_text"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignEnd="@+id/plus_minutes"-->
+            <!--android:layout_alignLeft="@+id/plus_minutes"-->
+            <!--android:layout_alignRight="@+id/plus_minutes"-->
+            <!--android:layout_alignStart="@+id/plus_minutes"-->
+            <!--android:layout_below="@+id/plus_minutes"-->
+            <!--android:gravity="center"-->
+            <!--android:text="00"-->
+            <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
+
+        <!--<Button-->
+            <!--android:id="@+id/minus_minutes"-->
+            <!--android:layout_width="50dp"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:layout_alignLeft="@+id/minutes_text"-->
+            <!--android:layout_alignStart="@+id/minutes_text"-->
+            <!--android:layout_below="@+id/minutes_text"-->
+            <!--android:onClick="minusMinutesFunction"-->
+            <!--android:text="-" />-->
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:weightSum="4"
+        android:id="@+id/linearLayout2"
+        android:layout_below="@+id/countdown_timer"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="28dp">
+
+
+
+        <TextView
+            android:id="@+id/monday_tab"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+
+            android:background="@color/gray"
+            android:gravity="center"
+            android:onClick="chooseDayFunction"
+            android:text="Mon."
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+        <Space
+            android:layout_width="5dp"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            android:id="@+id/tuesday_tab"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/gray"
+            android:gravity="center"
+            android:onClick="chooseDayFunction"
+            android:text="Tue."
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+        <Space
+            android:layout_width="5dp"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            android:id="@+id/wednesday_tab"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/gray"
+            android:gravity="center"
+            android:onClick="chooseDayFunction"
+            android:text="Wed."
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+        <Space
+            android:layout_width="5dp"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:id="@+id/thursday_tab"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/gray"
+            android:gravity="center"
+            android:onClick="chooseDayFunction"
+            android:text="Thu."
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:weightSum="3"
+        android:layout_marginTop="10dp"
+        android:id="@+id/linearLayout4"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+
+
+
+
+
+        <TextView
+            android:id="@+id/friday_tab"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/gray"
+            android:gravity="center"
+            android:onClick="chooseDayFunction"
+            android:text="Fri."
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            android:id="@+id/saturday_tab"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/gray"
+            android:gravity="center"
+            android:onClick="chooseDayFunction"
+            android:text="Sat."
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            android:id="@+id/sunday_tab"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+
+            android:background="@color/gray"
+            android:gravity="center"
+            android:onClick="chooseDayFunction"
+            android:text="Sun."
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    </LinearLayout>
+
+
+
+    <CheckBox
+        android:id="@+id/weekly"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:checked="true"
+        android:text="Is weekly"
+        android:layout_alignBaseline="@+id/active"
+        android:layout_alignBottom="@+id/active"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <CheckBox
+        android:id="@+id/active"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="Is active"
+        android:layout_below="@+id/linearLayout7"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="26dp" />
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:onClick="saveFunction"
+        android:background="@drawable/check0"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:onClick="goBack"
+android:background="@drawable/cancel1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+
+
+</RelativeLayout>

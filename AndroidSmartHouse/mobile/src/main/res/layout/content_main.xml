@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_bg"
+    tools:context=".MainActivity"
+    tools:showIn="@layout/activity_main2">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/connect"
+        android:background="@drawable/connection"
+        android:onClick="connectFunction"
+        android:gravity="top|center_horizontal"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/global2"
+        android:id="@+id/button3"
+        android:onClick="manualIPConnection"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/button4"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/connect_icon3"
+        android:layout_below="@+id/button3"
+        android:layout_alignParentLeft="true"
+        android:onClick="portChangeFunction"
+        android:layout_alignParentStart="true" />
+
+
+</RelativeLayout>

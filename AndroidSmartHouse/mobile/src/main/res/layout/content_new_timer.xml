@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".NewTimerActivity"
+    tools:showIn="@layout/activity_new_timer">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|left"
+            android:orientation="vertical"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/linearLayout5">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center|left"
+                    android:text="Command Text" />
+
+
+                <Spinner
+                    android:id="@+id/tab_command_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:popupBackground="@color/transparent_white_percent_90"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center|left"
+                    android:text="Command Mode" />
+
+
+                <Spinner
+                    android:id="@+id/command_mode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:drawSelectorOnTop="true"
+                    android:popupBackground="@color/transparent_white_percent_90"
+                    android:entries="@array/mode"
+                    android:text="Command  with on or off at the end"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            </LinearLayout>
+
+            <!--<Button-->
+            <!--android:id="@+id/tab_edit_button"-->
+            <!--android:layout_width="50dp"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_below="@+id/tab_delete_button"-->
+            <!--android:background="@drawable/notepad" />-->
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="70dp">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center|left"
+                    android:text="Device ID" />
+
+
+    <Spinner
+        android:id="@+id/deviceID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:popupBackground="@color/transparent_white_percent_90"
+
+        android:layout_alignLeft="@+id/tab_command_text_view"
+        android:layout_alignStart="@+id/tab_command_text_view" />
+
+</LinearLayout>
+
+        </LinearLayout>
+
+    <com.phillipcalvin.iconbutton.IconButton
+        android:id="@+id/countdown_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout5"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:drawableLeft="@drawable/date2"
+        android:onClick="enterTimerFunction"
+        android:text="Enter Time   "
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:iconPadding="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/showTimeText"
+        android:background="@color/transparent_black_percent_5"
+        android:layout_below="@+id/countdown_timer"
+        android:layout_alignLeft="@+id/countdown_timer"
+        android:layout_alignStart="@+id/countdown_timer"
+        android:layout_alignRight="@+id/countdown_timer"
+        android:layout_alignEnd="@+id/countdown_timer" />
+    <Button
+        android:id="@+id/save"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+
+        android:onClick="saveFunction"
+android:background="@drawable/check2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:onClick="goBack"
+android:background="@drawable/cancel"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>

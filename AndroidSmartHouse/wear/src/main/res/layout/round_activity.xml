@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<android.support.wearable.view.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/box"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:deviceIds="wear_round">
+
+    <RelativeLayout
+        android:id="@+id/first_frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_box="all">
+
+
+        <Button
+            android:id="@+id/switch_button"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/finger_touching_smartwatch_small"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_gravity="center_horizontal|top"
+            app:layout_box="all"
+            android:layout_above="@+id/speechButton"
+            android:layout_alignStart="@+id/speechButton"
+            android:layout_marginBottom="27dp" />
+
+        <Button
+            android:id="@+id/speechButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:background="@drawable/mic"
+            android:layout_marginBottom="19dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+</android.support.wearable.view.BoxInsetLayout>

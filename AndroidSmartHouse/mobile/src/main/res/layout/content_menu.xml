@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/menu_bg"
+    tools:context=".MenuActivity"
+  >
+
+
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/voice_cmd_btn_icon3"
+        android:id="@+id/speech_button"
+        android:layout_marginTop="50dp"
+        android:onClick="chooseSpeechFunction"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/button"
+        android:background="@drawable/manual1"
+        android:onClick="chooseSwitchFunction"
+        android:layout_marginTop="56dp"
+        android:layout_below="@+id/speech_button"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/automation"
+        android:id="@+id/automation"
+        android:onClick="automationFunction"
+        android:layout_below="@+id/button"
+        android:layout_marginTop="66dp"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>
