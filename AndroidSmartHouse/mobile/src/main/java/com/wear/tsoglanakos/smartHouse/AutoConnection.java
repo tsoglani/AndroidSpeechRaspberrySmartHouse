@@ -194,6 +194,9 @@ public class AutoConnection {
                     if(clientSocket==null)
                         clientSocket= new DatagramSocket();
 //                    Toast.makeText(context, "waiting", Toast.LENGTH_SHORT).show();
+
+
+
                     clientSocket.setSoTimeout(5000);
                     clientSocket.receive(receivePacket);
                     String modifiedSentence = new String(receivePacket.getData()); // 1rst connection respond
@@ -230,13 +233,14 @@ public class AutoConnection {
                 try {
                     while (true) {
                         byte[] receiveData = new byte[1024];
-                        DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+                      final  DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 
                         if (clientSocket == null)
                             clientSocket = new DatagramSocket();
 //                    Toast.makeText(context, "waiting", Toast.LENGTH_SHORT).show();
                         clientSocket.setSoTimeout(6000);
                         clientSocket.receive(receivePacket);
+
                         String modifiedSentence = new String(receivePacket.getData()); // 1rst connection respond
                         if (!usingInetAddress.contains(receivePacket.getAddress()))
                             usingInetAddress.add(receivePacket.getAddress());
@@ -244,6 +248,12 @@ public class AutoConnection {
                         String sentence = new String(receivePacket.getData(), receivePacket.getOffset(), receivePacket.getLength());
 
                         if (isFromPhone) {
+                            ((Activity)context).runOnUiThread(new Thread() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(context, receivePacket.getAddress().toString(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
                             Intent intent = new Intent(context, MenuActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             context.startActivity(intent);

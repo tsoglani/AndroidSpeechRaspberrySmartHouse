@@ -25,13 +25,12 @@ import org.apache.commons.lang3.StringUtils;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.InetSocketAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-public class ConnectionHistory extends AppCompatActivity {
+public class ConnectionHistory extends Activity {
     LinearLayout connection_history_linear;
     DB_connectionHistory db;
 
@@ -47,9 +46,16 @@ public class ConnectionHistory extends AppCompatActivity {
     private static final Pattern PATTERN = Pattern.compile(
             "^(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])$");
 
+
+
     public static boolean validate(final String ip) {
         return PATTERN.matcher(ip).matches();
     }
+    public static boolean validateUrl(final String url) {
+        return (Patterns.DOMAIN_NAME.matcher(url).matches()|| Patterns.WEB_URL.matcher(url).matches());
+    }
+
+
 
     private void loadHistory() {
         connection_history_linear.setGravity(Gravity.CENTER);
@@ -219,12 +225,12 @@ public class ConnectionHistory extends AppCompatActivity {
                             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     ip = ipInput.getText().toString();
-                                    if (ip == null || ip.replace(" ", "").equals("") || !validate(ip)) {
+                                    if (ip == null || ip.replace(" ", "").equals("") || !validate(ip)&&!validateUrl(ip)) {
                                         runOnUiThread(new Thread() {
                                             @Override
                                             public void run() {
 
-                                                Toast.makeText(getApplicationContext(), "Enter a real IP", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(getApplicationContext(), "Enter a real IP/Domain", Toast.LENGTH_SHORT).show();
 
                                             }
                                         });
@@ -393,12 +399,12 @@ public class ConnectionHistory extends AppCompatActivity {
                             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     ip = ipInput.getText().toString();
-                                    if (ip == null || ip.replace(" ", "").equals("") || !validate(ip)) {
+                                    if (ip == null || ip.replace(" ", "").equals("") || !validate(ip)&&!validateUrl(ip)) {
                                         runOnUiThread(new Thread() {
                                             @Override
                                             public void run() {
 
-                                                Toast.makeText(getApplicationContext(), "Enter a real IP", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(getApplicationContext(), "Enter a real IP/Domain", Toast.LENGTH_SHORT).show();
 
                                             }
                                         });
@@ -534,13 +540,38 @@ public class ConnectionHistory extends AppCompatActivity {
     }
 
 
-    public void connect(final String ip, String name,int port) {
+    public void connect(final String ip, final String name,final int port) {
+        new Thread(){
+            @Override
+            public void run() {
         try {
+
+
+
+
             AutoConnection.port=port;
-            sendData("globalReturning", name.replaceAll("!!!!!", ""), InetAddress.getByName(ip), AutoConnection.port);
-        } catch (UnknownHostException e) {
+            final InetAddress address=   InetAddress.getByName(ip);
+
+            runOnUiThread(new Thread(){
+                @Override
+                public void run() {
+                    try {
+
+                        Toast.makeText(ConnectionHistory.this, address.getHostAddress(), Toast.LENGTH_SHORT).show();
+                        sendData("globalReturning", name.replaceAll("!!!!!", ""),address , AutoConnection.port);
+
+                    }catch (Exception e){
+
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
+}
+        }.start();
     }
 
     private DatagramSocket clientSocket;
