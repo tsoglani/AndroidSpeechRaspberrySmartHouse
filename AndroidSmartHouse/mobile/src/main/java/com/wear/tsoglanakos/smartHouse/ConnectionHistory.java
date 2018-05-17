@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -68,6 +69,7 @@ public class ConnectionHistory extends Activity {
             final TextView portView = (TextView) rl.findViewById(R.id.port_text);
             final TextView usernameText = (TextView) rl.findViewById(R.id.username_text);
             ipText.setText(value.split("@@@")[0]);
+          final  int defaultColor=ipText.getCurrentTextColor();
             usernameText.setText(value.split("@@@")[1]);
             portView.setText(value.split("@@@")[2]);
             connection_history_linear.addView(rl);
@@ -80,7 +82,32 @@ public class ConnectionHistory extends Activity {
                     try {
                         int usingPort = Integer.parseInt(portView.getText().toString());
 
-                        connect(ipText.getText().toString(), usernameText.getText().toString(),usingPort );
+                        connect(ipText.getText().toString(), usernameText.getText().toString(), usingPort);
+
+                        runOnUiThread(new Thread(){
+                            @Override
+                            public void run() {
+
+                                if (ipText.getCurrentTextColor()==Color.RED){
+                                    ipText.setTextColor(defaultColor);
+                                    new Thread() {
+                                        @Override
+                                        public void run() {
+
+                                            removeDnsWithIp(ipText.getText().toString());
+                                            try {
+                                                saveDnsWithIp(ipText.getText().toString(), InetAddress.getByName(ipText.getText().toString()).getHostAddress());
+                                            } catch (UnknownHostException e) {
+                                                e.printStackTrace();
+                                                saveDnsWithIp(ipText.getText().toString(), "none");
+
+                                            }
+                                        }
+                                    }.start();
+                                }
+                            }
+                        });
+
                     }catch (NumberFormatException e){
 
                         runOnUiThread(new Thread(){
@@ -101,10 +128,43 @@ public class ConnectionHistory extends Activity {
                         @Override
                         public void run() {
                             db.deleteContact(ipText.getText().toString(), usernameText.getText().toString(),portView.getText().toString());
+
+                            new Thread(){
+                                @Override
+                                public void run() {
+                                    removeDnsWithIp(ipText.getText().toString());
+
+                                }
+                            }.start();
                         }
                     });
                 }
             });
+
+            new Thread(){
+                @Override
+                public void run() {
+                    try {
+                        final String curIp=InetAddress.getByName(ipText.getText().toString()).getHostAddress();
+                    boolean hasDnsChangeIp=    hasDnsChangeIp(ipText.getText().toString(),curIp);
+
+                        if (hasDnsChangeIp){
+                            runOnUiThread(new Thread(){
+                                @Override
+                                public void run() {
+                                    ipText.setTextColor(Color.RED);
+                                }
+                            });
+
+                        }
+                    } catch (UnknownHostException e) {
+                        e.printStackTrace();
+                        hasDnsChangeIp(ipText.getText().toString(),"none");
+
+                    }
+
+                }
+            }.start();
 
             final Button edit = (Button) rl.findViewById(R.id.edit);
             edit.setOnClickListener(new View.OnClickListener() {
@@ -267,6 +327,20 @@ public class ConnectionHistory extends Activity {
                                                 @Override
                                                 public void run() {
                                                     db.deleteContactAndCreateAnotherOne(inputIp, inputUsername, ipInput.getText().toString(), usernameInput.getText().toString(),inputPort,portInput.getText().toString());
+                                               new Thread(){
+                                                   @Override
+                                                   public void run() {
+                                                       removeDnsWithIp(inputIp);
+                                                       try {
+                                                           saveDnsWithIp(ipInput.getText().toString(),InetAddress.getByName(ipInput.getText().toString()).getHostAddress());
+                                                       } catch (UnknownHostException e) {
+                                                           e.printStackTrace();
+                                                           saveDnsWithIp(ipInput.getText().toString(),"none");
+
+                                                       }
+                                                   }
+                                               }.start();
+
                                                 }
                                             });
 
@@ -309,6 +383,39 @@ public class ConnectionHistory extends Activity {
 
 
     }
+
+    private final String pref_name="smart_house_pref";
+
+    public void saveDnsWithIp(String dns,String ip){
+
+        SharedPreferences sp = getSharedPreferences(pref_name, Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(dns, ip);
+        editor.commit();
+        Log.e("saveDnsWithIp","ooookkk");
+
+    }
+
+    private boolean hasDnsChangeIp(String dns,String ip){
+        boolean hasDnsChangeIp=false;
+        SharedPreferences sp = getSharedPreferences(pref_name, Activity.MODE_PRIVATE);
+        String prevIp = sp.getString(dns, "none");
+ if (!ip.equals(prevIp)){
+    Log.e("hasDnsChangeIp","true  curentIP:"+ ip+" :: prevIp:"+prevIp);
+    return true;
+ }
+        Log.e("hasDnsChangeIp","false  curentIP:"+ ip+" :: prevIp:"+prevIp);
+
+        return hasDnsChangeIp;
+    }
+
+    private void removeDnsWithIp(String dns){
+        SharedPreferences settings = getSharedPreferences(pref_name, MODE_PRIVATE);
+      boolean isCompleteOk=  settings.edit().remove(dns).commit();
+        Log.e("removeDnsWithIp",Boolean.toString(isCompleteOk));
+
+    }
+
 
 
     String ip = null;
@@ -478,6 +585,18 @@ public class ConnectionHistory extends Activity {
                                             if (!db.isStored(ipInput.getText().toString(), usernameInput.getText().toString(), portInput.getText().toString())) {
                                                 db.insertContact(ipInput.getText().toString(), usernameInput.getText().toString(), portInput.getText().toString());
                                                 startActivity(new Intent(ConnectionHistory.this, ConnectionHistory.class));
+                                                new Thread(){
+                                                    @Override
+                                                    public void run() {
+                                                        try {
+                                                            saveDnsWithIp(ipInput.getText().toString(),InetAddress.getByName(ipInput.getText().toString()).getHostAddress());
+                                                        } catch (UnknownHostException e) {
+                                                            e.printStackTrace();
+                                                            saveDnsWithIp(ipInput.getText().toString(),"none");
+
+                                                        }
+                                                    }
+                                                }.start();
                                             } else {
                                                 runOnUiThread(new Thread() {
                                                     @Override
