@@ -147,7 +147,7 @@ public class SheduleActivity extends AppCompatActivity {
             @Override
             public void run() {
                 while (isReceiving) {
-                    byte[] receiveData = new byte[100024];
+                    byte[] receiveData = new byte[1000024];
                     DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
                     try {
                         if (clientSocket == null )
