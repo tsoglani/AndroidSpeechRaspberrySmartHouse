@@ -141,7 +141,7 @@ Thread thread;
                 while (isReceiving) {
                     try {
 
-                        byte[] receiveData = new byte[1024];
+                        byte[] receiveData = new byte[10024];
                         DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 
                         if (clientSocket == null)

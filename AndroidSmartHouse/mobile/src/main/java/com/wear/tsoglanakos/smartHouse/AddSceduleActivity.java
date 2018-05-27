@@ -170,7 +170,7 @@ public class AddSceduleActivity extends AppCompatActivity implements TimePickerD
 //                ids_list.add("select Device ID");
 
                 while (isReceiving) {
-                    byte[] receiveData = new byte[1024];
+                    byte[] receiveData = new byte[10024];
                     DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
                     try {
                         if (clientSocket == null)
@@ -203,6 +203,7 @@ public class AddSceduleActivity extends AppCompatActivity implements TimePickerD
                             });
                             Intent intent = new Intent(AddSceduleActivity.this, SheduleActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
                             startActivity(intent);
                         } else if (sentence.equals("addedNotOk")) {
                             isReceiving=false;
@@ -323,7 +324,7 @@ public class AddSceduleActivity extends AppCompatActivity implements TimePickerD
 
         String activeDays = "";
         if (isDaySelected(sunday_tab)) {
-            String extgraString=(isDayOn(saturday_tab))?" on":" off";
+            String extgraString=(isDayOn(sunday_tab))?" on":" off";
             activeDays += Calendar.SUNDAY+extgraString;
         }
         if (isDaySelected(monday_tab)) {

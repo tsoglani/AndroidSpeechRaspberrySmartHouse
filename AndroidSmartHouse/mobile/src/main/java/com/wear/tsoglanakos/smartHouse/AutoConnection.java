@@ -188,7 +188,7 @@ public class AutoConnection {
         new Thread() {
             @Override
             public void run() {
-                byte[] receiveData = new byte[1024];
+                byte[] receiveData = new byte[10024];
                 DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
                 try {
                     if(clientSocket==null)
@@ -232,7 +232,7 @@ public class AutoConnection {
             public void run() {
                 try {
                     while (true) {
-                        byte[] receiveData = new byte[1024];
+                        byte[] receiveData = new byte[10024];
                       final  DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 
                         if (clientSocket == null)

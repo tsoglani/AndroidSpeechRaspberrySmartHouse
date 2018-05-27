@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
@@ -34,16 +35,17 @@ import java.net.SocketException;
 import java.util.ArrayList;
 
 public class SwitchManualActivity extends AppCompatActivity {
-    DB_SwitchCommand db;
-    boolean isCommandMode = false;
-    DatagramSocket clientSocket;
-    static SwitchManualActivity switchActivity;
-
+    private DB_SwitchCommand db;
+    private  boolean isCommandMode = false;
+    private  DatagramSocket clientSocket;
+    protected   static SwitchManualActivity switchActivity;
+    private PowerManager.WakeLock wakeLock;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         isCommandMode = receiveBoolean("isCommandMode", true);
-
+        final PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
+        wakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "My Tag");
         setContentView(R.layout.activity_switch);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -436,7 +438,7 @@ public class SwitchManualActivity extends AppCompatActivity {
                     while (isReceiving) {
                         try {
 
-                            byte[] receiveData = new byte[1024];
+                            byte[] receiveData = new byte[10024];
                             DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 
                             if (clientSocket == null)
@@ -474,10 +476,13 @@ public class SwitchManualActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
         switchActivity = this;
+        wakeLock.acquire();
+
         isCommandMode = receiveBoolean("isCommandMode", true);
         isReceiving = true;
         receiver();
@@ -690,6 +695,7 @@ public class SwitchManualActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
+        wakeLock.release();
         isReceiving = false;
         switchActivity = null;
         if (clientSocket != null) {

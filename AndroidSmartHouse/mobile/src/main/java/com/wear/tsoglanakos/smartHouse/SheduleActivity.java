@@ -147,7 +147,7 @@ public class SheduleActivity extends AppCompatActivity {
             @Override
             public void run() {
                 while (isReceiving) {
-                    byte[] receiveData = new byte[1024];
+                    byte[] receiveData = new byte[100024];
                     DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
                     try {
                         if (clientSocket == null )
@@ -179,10 +179,17 @@ public class SheduleActivity extends AppCompatActivity {
 
                             String[] incomeShedules = sentence.split(AddSceduleActivity.SHEDULE_SPLIT_STRING);
 
+                            Log.e("incomming sentence", sentence);
 
                             for (int i = 0; i < incomeShedules.length; i++) {
-                                String[] list = incomeShedules[i].split(AddSceduleActivity.COMMAND_SPLIT_STRING);
-                                addTab(list, deviceID);
+                                try {
+                                    incomeShedules[i].replaceAll("CommandID:", "CommandID::");
+                                    String[] list = incomeShedules[i].split(AddSceduleActivity.COMMAND_SPLIT_STRING);
+
+                                    addTab(list, deviceID);
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
                             }
 
 
@@ -550,6 +557,9 @@ public class SheduleActivity extends AppCompatActivity {
 
     }
 
+
+
+
     private void changeDayColor(View v, String daysString, int day) {
         if (daysString.contains(Integer.toString(day)+" on")) {
             v.setBackgroundColor(getResources().getColor(R.color.green));
@@ -594,7 +604,6 @@ public class SheduleActivity extends AppCompatActivity {
                 final CheckBox weekly = (CheckBox) rl.findViewById(R.id.weekly);
                 final CheckBox active = (CheckBox) rl.findViewById(R.id.active);
                 final String[] list = command.split(AddSceduleActivity.COMMAND_SPLIT_STRING);
-
                 final String commandID = getCommandID(list);
                 if (!commandID.equals(rl.getTag().toString())
                         || !serverDeviceID.equals(device_id.getText().toString().substring("Device id:".length(), device_id.getText().toString().length()))) {
@@ -675,6 +684,11 @@ public class SheduleActivity extends AppCompatActivity {
         return out.substring(AddSceduleActivity.COMMAND_ID.length(), out.length());
     }
 
+    private String getCommandID2(String[] list) {
+        String out = list[0];
+        Log.e("getCommandID", out);
+        return out.substring("CommandID::".length(), out.length());
+    }
     private String getCommandText(String[] list) {
         String out = list[1];
         Log.e("getCommandID", out);

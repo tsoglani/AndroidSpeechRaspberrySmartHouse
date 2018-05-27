@@ -8,8 +8,8 @@ android {
         applicationId "com.raspberry.drtsoglanakos.smartHouse"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 1
-        versionName "1"
+        versionCode 3
+        versionName "3"
         multiDexEnabled true
 
     }

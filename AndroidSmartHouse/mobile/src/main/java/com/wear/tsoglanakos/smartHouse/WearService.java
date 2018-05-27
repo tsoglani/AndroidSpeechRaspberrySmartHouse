@@ -216,7 +216,7 @@ public class WearService extends WearableListenerService {
         thread = new Thread() {
             @Override
             public void run() {
-                byte[] receiveData = new byte[1024];
+                byte[] receiveData = new byte[10024];
                 DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
                 try {
                     new AsyncTask<Void, Void, Void>() {
@@ -298,7 +298,7 @@ public class WearService extends WearableListenerService {
                 int counter = 0;
                 isRunning = true;
                 while (isRunning) {
-                    byte[] receiveData = new byte[1024];
+                    byte[] receiveData = new byte[10024];
                     DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
                     try {
                         async = new AsyncTask<Void, Void, Void>() {

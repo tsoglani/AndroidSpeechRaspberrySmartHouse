@@ -721,7 +721,7 @@ public class ConnectionHistory extends Activity {
             @Override
             public void run() {
 
-                byte[] receiveData = new byte[1024];
+                byte[] receiveData = new byte[100024];
                 DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
                 try {
                     if (clientSocket == null)

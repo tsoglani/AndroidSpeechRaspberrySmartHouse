@@ -51,7 +51,7 @@ public class Automation extends AppCompatActivity {
             @Override
             public void run() {
                 while (isReceiving) {
-                    byte[] receiveData = new byte[1024];
+                    byte[] receiveData = new byte[10024];
                     DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
                     try {
                         if (clientSocket == null || clientSocket.isClosed())
