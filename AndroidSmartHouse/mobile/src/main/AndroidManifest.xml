@@ -4,25 +4,24 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!--<uses-permission android:name="android.permission.RECORD_AUDIO"/>-->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-
+    <!-- <uses-permission android:name="android.permission.RECORD_AUDIO"/> -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
+        android:name="android.support.multidex.MultiDexApplication"
         android:allowBackup="true"
+        android:configChanges="orientation"
         android:icon="@drawable/ic"
         android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:name="android.support.multidex.MultiDexApplication"
         android:largeHeap="true"
-        android:configChanges="orientation"
         android:screenOrientation="portrait"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.wear.tsoglanakos.smartHouse.MainActivity"
-            android:noHistory="true"
+            android:name=".MainActivity"
             android:configChanges="orientation"
+            android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -32,81 +31,84 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.wear.tsoglanakos.smartHouse.MenuActivity"
-            android:noHistory="true"
+            android:name=".MenuActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name="com.wear.tsoglanakos.smartHouse.SpeechActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name="com.wear.tsoglanakos.smartHouse.SwitchManualActivity"
             android:noHistory="true"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
-        <activity
-            android:name="com.wear.tsoglanakos.smartHouse.ConnectionHistory"
-            android:noHistory="true"
-            android:configChanges="orientation"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SpeechActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SwitchManualActivity"
+            android:configChanges="orientation"
+            android:launchMode="singleTask"
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ConnectionHistory"
+            android:configChanges="orientation"
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SheduleActivity"
-            android:noHistory="true"
             android:configChanges="orientation"
+            android:noHistory="true"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AddSceduleActivity"
-            android:noHistory="true"
             android:configChanges="orientation"
+            android:noHistory="true"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Automation"
-            android:noHistory="true"
             android:configChanges="orientation"
+            android:noHistory="true"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".NewTimerActivity"
-            android:noHistory="true"
             android:configChanges="orientation"
+            android:noHistory="true"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".UpdateSceduleActivity"
-            android:noHistory="true"
             android:configChanges="orientation"
+            android:noHistory="true"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".TimerActivity"
-            android:noHistory="true"
             android:configChanges="orientation"
+            android:noHistory="true"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-        <service android:name="com.wear.tsoglanakos.smartHouse.WearService">
+
+        <service android:name=".WearService">
             <intent-filter>
-                <!--<action android:name="com.google.android.gms.wearable.BIND_LISTENER" />-->
+
+                <!-- <action android:name="com.google.android.gms.wearable.BIND_LISTENER" /> -->
                 <action android:name="com.google.android.gms.wearable.DATA_CHANGED" />
                 <action android:name="com.google.android.gms.wearable.MESSAGE_RECEIVED" />
                 <action android:name="com.google.android.gms.wearable.CAPABILITY_CHANGED" />
                 <action android:name="com.google.android.gms.wearable.CHANNEL_EVENT" />
 
-                <data android:scheme="wear" android:host="*"  />
+                <data
+                    android:host="*"
+                    android:scheme="wear" />
             </intent-filter>
         </service>
+
     </application>
 
 </manifest>

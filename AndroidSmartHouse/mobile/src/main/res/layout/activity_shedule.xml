@@ -35,6 +35,37 @@
                     android:background="@drawable/back"
                     android:onClick="goBack" />
 
+
+
+                <LinearLayout
+                    android:layout_width="2000dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+
+                    android:weightSum="2"
+                    android:id="@+id/linearLayout3"
+                    android:layout_toEndOf="@+id/button6"
+                    android:layout_toStartOf="@+id/refresh">
+                    <Spinner
+                        android:id="@+id/days"
+
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:spinnerMode="dropdown"
+                        />
+                <Spinner
+                    android:id="@+id/devices"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+
+                    android:layout_weight="1"
+                    android:spinnerMode="dropdown"
+                    />
+
+                </LinearLayout>
                 <Button
                     android:id="@+id/refresh"
                     android:layout_width="40dp"
@@ -44,6 +75,8 @@
                     android:layout_alignParentRight="true"
                     android:onClick="refreshFunction"
                     android:background="@drawable/refresh" />
+
+
             </RelativeLayout>
 
         </android.support.v7.widget.Toolbar>

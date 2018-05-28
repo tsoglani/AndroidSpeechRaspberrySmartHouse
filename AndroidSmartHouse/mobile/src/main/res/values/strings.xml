@@ -14,4 +14,5 @@
         <item>off</item>
     </string-array>
     <string name="myAlphaNumeric">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" ":</string>
+    <string name="title_activity_shedule_menu_view">SheduleMenuView</string>
 </resources>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,6 +9,15 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".SheduleActivity"
     tools:showIn="@layout/activity_shedule">
+
+
+
+
+    <com.victor.loading.newton.NewtonCradleLoading
+        android:id="@+id/newton_cradle_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true" />
 
     <ScrollView
         android:id="@+id/shedule_activity_scroll_view"
@@ -35,4 +44,4 @@
     </ScrollView>
 
 
-</FrameLayout>
+</RelativeLayout>
