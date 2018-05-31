@@ -41,7 +41,7 @@ public class NewTimerActivity extends AppCompatActivity {
     private Thread thread;
     RelativeLayout relative2;
     private long timeStamp;
-private IconButton countdown_timer,countdown_timer_adv,starting_countdown_timer;
+    private IconButton countdown_timer,countdown_timer_adv,starting_countdown_timer;
     int sec=-1, hour=-1, min=-1;
     private int sec_adv=-1,min_adv=-1,hour_adv=-1;
     private int startingSec,startingMin,startingHour;
@@ -103,7 +103,7 @@ private IconButton countdown_timer,countdown_timer_adv,starting_countdown_timer;
                     @Override
                     public void run() {
                         isSwitched=!isSwitched;
-                      //  Toast.makeText(NewTimerActivity.this, "isSwitched::"+isSwitched, Toast.LENGTH_SHORT).show();
+                        //  Toast.makeText(NewTimerActivity.this, "isSwitched::"+isSwitched, Toast.LENGTH_SHORT).show();
 
                         if (!isSwitched) {
                             open_text.setText("Open in");
@@ -193,15 +193,15 @@ private IconButton countdown_timer,countdown_timer_adv,starting_countdown_timer;
             @Override
             public void onStateChange(float process, State state, JellyToggleButton jtb) {
                 if (state.equals(State.LEFT)) {
-                   runOnUiThread(new Thread(){
-                       @Override
-                       public void run() {
-                           viewFlipper.setDisplayedChild(0);
-                           viewFlipper.setInAnimation(getApplicationContext(), R.anim.slide_in_from_left);
-                           viewFlipper.setOutAnimation(getApplicationContext(), R.anim.slide_out_to_right);
+                    runOnUiThread(new Thread(){
+                        @Override
+                        public void run() {
+                            viewFlipper.setDisplayedChild(0);
+                            viewFlipper.setInAnimation(getApplicationContext(), R.anim.slide_in_from_left);
+                            viewFlipper.setOutAnimation(getApplicationContext(), R.anim.slide_out_to_right);
 
-                       }
-                   });
+                        }
+                    });
                 }
                 if (state.equals(State.RIGHT)) {
                     runOnUiThread(new Thread(){
@@ -239,10 +239,10 @@ private IconButton countdown_timer,countdown_timer_adv,starting_countdown_timer;
     }
 
     private String getTimerText() {
-if (hour==-1||min==-1||sec==-1){
+        if (hour==-1||min==-1||sec==-1){
 
-    return "";
-}
+            return "";
+        }
 
         String h = Integer.toString(hour), m = Integer.toString(min), s = Integer.toString(sec);
         if (h.length() == 1) {
@@ -303,7 +303,7 @@ if (hour==-1||min==-1||sec==-1){
             });
             return;
         }
-       sendForActivation_adv();
+        sendForActivation_adv();
         // send to All the data
     }
 
@@ -315,20 +315,20 @@ if (hour==-1||min==-1||sec==-1){
 
 
 
-if (!isSwitched) {
-    sendDataToAll("newTimers:DeviceID:" + devideIDSpinner.getSelectedItem().toString() + AddSceduleActivity.COMMAND_SPLIT_STRING + AddSceduleActivity.TIME_STAMP + Long.toString(timeStamp) + AddSceduleActivity.COMMAND_SPLIT_STRING + AddSceduleActivity.COMMAND_TEXT_STRING +
-            tab_command_text_view_adv.getSelectedItem().toString() + " on" + AddSceduleActivity.COMMAND_SPLIT_STRING + SENDING_TIME + Integer.toString(startingTimeSum) +
-            AddSceduleActivity.MULTY_TIMERS_STRING +
-           "DeviceID:"+ devideIDSpinner.getSelectedItem().toString() + AddSceduleActivity.COMMAND_SPLIT_STRING + AddSceduleActivity.TIME_STAMP + Long.toString(timeStamp+100) + AddSceduleActivity.COMMAND_SPLIT_STRING + AddSceduleActivity.COMMAND_TEXT_STRING +
-            tab_command_text_view_adv.getSelectedItem().toString() + " off" + AddSceduleActivity.COMMAND_SPLIT_STRING + SENDING_TIME + Integer.toString(sum + startingTimeSum));
-}else{
-    sendDataToAll("newTimers:DeviceID:" + devideIDSpinner.getSelectedItem().toString() + AddSceduleActivity.COMMAND_SPLIT_STRING + AddSceduleActivity.TIME_STAMP + Long.toString(timeStamp) + AddSceduleActivity.COMMAND_SPLIT_STRING + AddSceduleActivity.COMMAND_TEXT_STRING +
-            tab_command_text_view_adv.getSelectedItem().toString() + " off" + AddSceduleActivity.COMMAND_SPLIT_STRING + SENDING_TIME + Integer.toString(startingTimeSum) +
-            AddSceduleActivity.MULTY_TIMERS_STRING +
-            "DeviceID:"+ devideIDSpinner.getSelectedItem().toString() + AddSceduleActivity.COMMAND_SPLIT_STRING + AddSceduleActivity.TIME_STAMP + Long.toString(timeStamp) + AddSceduleActivity.COMMAND_SPLIT_STRING + AddSceduleActivity.COMMAND_TEXT_STRING +
-            tab_command_text_view_adv.getSelectedItem().toString() + " on" + AddSceduleActivity.COMMAND_SPLIT_STRING + SENDING_TIME + Integer.toString(sum + startingTimeSum));
+        if (!isSwitched) {
+            sendDataToAll("newTimers:DeviceID:" + devideIDSpinner.getSelectedItem().toString() + AddSceduleActivity.COMMAND_SPLIT_STRING + AddSceduleActivity.TIME_STAMP + Long.toString(timeStamp) + AddSceduleActivity.COMMAND_SPLIT_STRING + AddSceduleActivity.COMMAND_TEXT_STRING +
+                    tab_command_text_view_adv.getSelectedItem().toString() + " on" + AddSceduleActivity.COMMAND_SPLIT_STRING + SENDING_TIME + Integer.toString(startingTimeSum) +
+                    AddSceduleActivity.MULTY_TIMERS_STRING +
+                    "DeviceID:"+ devideIDSpinner.getSelectedItem().toString() + AddSceduleActivity.COMMAND_SPLIT_STRING + AddSceduleActivity.TIME_STAMP + Long.toString(timeStamp+100) + AddSceduleActivity.COMMAND_SPLIT_STRING + AddSceduleActivity.COMMAND_TEXT_STRING +
+                    tab_command_text_view_adv.getSelectedItem().toString() + " off" + AddSceduleActivity.COMMAND_SPLIT_STRING + SENDING_TIME + Integer.toString(sum + startingTimeSum));
+        }else{
+            sendDataToAll("newTimers:DeviceID:" + devideIDSpinner.getSelectedItem().toString() + AddSceduleActivity.COMMAND_SPLIT_STRING + AddSceduleActivity.TIME_STAMP + Long.toString(timeStamp) + AddSceduleActivity.COMMAND_SPLIT_STRING + AddSceduleActivity.COMMAND_TEXT_STRING +
+                    tab_command_text_view_adv.getSelectedItem().toString() + " off" + AddSceduleActivity.COMMAND_SPLIT_STRING + SENDING_TIME + Integer.toString(startingTimeSum) +
+                    AddSceduleActivity.MULTY_TIMERS_STRING +
+                    "DeviceID:"+ devideIDSpinner.getSelectedItem().toString() + AddSceduleActivity.COMMAND_SPLIT_STRING + AddSceduleActivity.TIME_STAMP + Long.toString(timeStamp) + AddSceduleActivity.COMMAND_SPLIT_STRING + AddSceduleActivity.COMMAND_TEXT_STRING +
+                    tab_command_text_view_adv.getSelectedItem().toString() + " on" + AddSceduleActivity.COMMAND_SPLIT_STRING + SENDING_TIME + Integer.toString(sum + startingTimeSum));
 
-}
+        }
     }
 
 

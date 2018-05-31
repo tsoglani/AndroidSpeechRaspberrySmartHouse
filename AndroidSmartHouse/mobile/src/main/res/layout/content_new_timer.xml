@@ -13,16 +13,21 @@
     tools:showIn="@layout/activity_new_timer">
 
 
-    <ViewFlipper
-        android:id="@+id/viewflipper"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_margin="6dp">
+    <!--<ViewFlipper-->
+        <!--android:id="@+id/viewflipper"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="fill_parent"-->
+    <!--android:layout_margin="6dp">-->
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/relative1"
->
+    android:focusableInTouchMode="true"
+    android:clickable="true"
+    android:focusable="true"
+    android:descendantFocusability="beforeDescendants"
+
+    >
 
 
 
@@ -57,7 +62,6 @@
                     android:ellipsize="marquee"
                     android:textAlignment="center"
                     tools:ignore="MissingPrefix"
-
                     android:popupBackground="@color/transparent_white_percent_90"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -117,6 +121,8 @@
         android:layout_below="@+id/linearLayout5"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp"
+        android:focusableInTouchMode="true"
+
         android:drawableLeft="@drawable/date2"
         android:onClick="enterTimerFunction"
         android:text="Enter Time   "
@@ -159,8 +165,13 @@ android:background="@drawable/cancel"
         <RelativeLayout
             android:id="@+id/relative2"
             android:focusableInTouchMode="true"
+            android:clickable="true"
+            android:focusable="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:descendantFocusability="beforeDescendants"
+            android:visibility="invisible"
+
             >
 
 
@@ -339,6 +350,6 @@ android:background="@drawable/cancel"
 
         </RelativeLayout>
 
-    </ViewFlipper>
+    <!--</ViewFlipper>-->
 </FrameLayout>
 

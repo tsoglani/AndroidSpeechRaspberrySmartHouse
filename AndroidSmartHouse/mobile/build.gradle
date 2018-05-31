@@ -42,7 +42,7 @@ dependencies {
     "wear1Release")
 
 
-
+    compile 'com.wajahatkarim3.EasyFlipView:EasyFlipView:2.0.5'
     compile 'com.nightonke:jellytogglebutton:1.0.2'
     compile 'com.victor:lib:1.0.4'
     compile'com.android.support:multidex:1.0.1'
