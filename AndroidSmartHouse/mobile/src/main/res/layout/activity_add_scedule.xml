@@ -35,6 +35,39 @@
                     android:background="@drawable/back"
                     android:onClick="goBack" />
 
+
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/linearLayout7"
+                    android:layout_marginLeft="50dp"
+                    android:layout_toEndOf="@+id/button6"
+                    android:layout_toStartOf="@+id/refresh"
+                    >
+                    <TextView
+                        android:id="@+id/device_id_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Devide : ID"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <Spinner
+                        android:id="@+id/deviceID"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:ellipsize="marquee"
+                        android:layout_marginLeft="15dp"
+                        android:textAlignment="center"
+                        tools:ignore="MissingPrefix"
+                        android:popupBackground="@color/transparent_white_percent_90"
+
+                        android:layout_alignParentTop="true"
+                        android:layout_toEndOf="@+id/device_id_text" />
+                </RelativeLayout>
+
+
                 <Button
                     android:id="@+id/refresh"
                     android:layout_width="40dp"

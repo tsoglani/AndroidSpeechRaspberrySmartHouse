@@ -28,11 +28,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+        AutoConnection.usingInetAddress.removeAll(AutoConnection.usingInetAddress);
         generateUniqueUserID();
         AutoConnection.port = receiveInt("port", 2222);
 
-
-        Log.e("eeeeeeeee","oooooooo");
+    //    Log.e("eeeeeeeee","oooooooo");
     }
 
     public void connectFunction(final View v) {

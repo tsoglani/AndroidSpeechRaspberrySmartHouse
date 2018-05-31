@@ -109,6 +109,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_new_timer" />
+    <include layout="@layout/advanced_new_timer" />
 
 </android.support.design.widget.CoordinatorLayout>

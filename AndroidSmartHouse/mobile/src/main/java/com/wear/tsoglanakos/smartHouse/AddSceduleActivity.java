@@ -41,7 +41,8 @@ public class AddSceduleActivity extends AppCompatActivity implements TimePickerD
     private CheckBox weekly, active;
     private Button sendButton;
     public final static String DAYS_STRING = "ActiveDays:", TIME_STRING = "Time:",ACTIVE_TIME_STRING = "ActiveTime:", COMMAND_TEXT_STRING = "CommandText:",TIME_STAMP="TimeStamp:",
-            IS_WEEKLY = "IsWeekly:", IS_ACTIVE = "IsActive:", COMMAND_SPLIT_STRING = "##", SHEDULE_SPLIT_STRING = "@@!@@", COMMAND_ID = "CommandID:", DEVICE_ID = "DeviceID:";
+            IS_WEEKLY = "IsWeekly:", IS_ACTIVE = "IsActive:", COMMAND_SPLIT_STRING = "##", SHEDULE_SPLIT_STRING = "@@!@@", COMMAND_ID = "CommandID:", DEVICE_ID = "DeviceID:",
+            MULTY_TIMERS_STRING ="@@TimerSeperator@@";
 
 
 

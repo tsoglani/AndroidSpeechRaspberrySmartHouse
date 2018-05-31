@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".NewTimerActivity"
     tools:showIn="@layout/activity_new_timer">
+
+
+    <ViewFlipper
+        android:id="@+id/viewflipper"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_margin="6dp">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/relative1"
+>
 
 
 
@@ -45,6 +54,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:ellipsize="marquee"
+                    android:textAlignment="center"
+                    tools:ignore="MissingPrefix"
+
                     android:popupBackground="@color/transparent_white_percent_90"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -72,6 +85,12 @@
                     android:drawSelectorOnTop="true"
                     android:popupBackground="@color/transparent_white_percent_90"
                     android:entries="@array/mode"
+
+
+                    android:ellipsize="marquee"
+                    android:textAlignment="center"
+                    tools:ignore="MissingPrefix"
+
                     android:text="Command  with on or off at the end"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -87,27 +106,7 @@
             <!--android:layout_below="@+id/tab_delete_button"-->
             <!--android:background="@drawable/notepad" />-->
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="70dp">
 
-                <TextView
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center|left"
-                    android:text="Device ID" />
-
-
-    <Spinner
-        android:id="@+id/deviceID"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:popupBackground="@color/transparent_white_percent_90"
-
-        android:layout_alignLeft="@+id/tab_command_text_view"
-        android:layout_alignStart="@+id/tab_command_text_view" />
-
-</LinearLayout>
 
         </LinearLayout>
 
@@ -136,7 +135,7 @@
         android:layout_alignRight="@+id/countdown_timer"
         android:layout_alignEnd="@+id/countdown_timer" />
     <Button
-        android:id="@+id/save"
+        android:id="@+id/save_adv"
         android:layout_width="60dp"
         android:layout_height="60dp"
 
@@ -146,7 +145,7 @@ android:background="@drawable/check2"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
     <Button
-        android:id="@+id/cancel"
+        android:id="@+id/cancel_adv"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:onClick="goBack"
@@ -155,3 +154,191 @@ android:background="@drawable/cancel"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/relative2"
+            android:focusableInTouchMode="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|left"
+                android:orientation="vertical"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/linearLayout5_adv">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center|left"
+                        android:textSize="20dp"
+                        android:text="Command Text" />
+
+
+                    <Spinner
+                        android:id="@+id/tab_command_text_view_adv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:ellipsize="marquee"
+                        android:textAlignment="center"
+                        tools:ignore="MissingPrefix"
+
+                        android:popupBackground="@color/transparent_white_percent_90"
+                        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                </LinearLayout>
+
+
+                <!--<Button-->
+                <!--android:id="@+id/tab_edit_button"-->
+                <!--android:layout_width="50dp"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_below="@+id/tab_delete_button"-->
+                <!--android:background="@drawable/notepad" />-->
+
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/linearLayout5_adv"
+                android:layout_marginTop="32dp"
+
+                android:id="@+id/linearLayout8"
+                android:weightSum="3">
+
+                <TextView
+                    android:id="@+id/open_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Open in"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+
+                <com.phillipcalvin.iconbutton.IconButton
+                    android:id="@+id/starting_countdown_timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:drawableLeft="@drawable/date2"
+                    android:onClick="countdown_starting_timerFunction_adv"
+                    android:text="00:00:00   "
+                    android:textSize="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:textStyle="bold"
+                    app:iconPadding="20dp"
+                    android:layout_weight="0.30" />
+
+
+                <Button
+                    android:id="@+id/button7"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/swtch" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/linearLayout9"
+                android:layout_below="@+id/linearLayout8"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="22dp">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="For        "
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+
+                <com.phillipcalvin.iconbutton.IconButton
+                    android:id="@+id/countdown_timer_adv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="10dp"
+                    android:drawableLeft="@drawable/date2"
+                    android:onClick="countdown_timerFunction_adv"
+                    android:text="Enter Time   "
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    app:iconPadding="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/showTimeAdv"
+                android:text=""
+                android:textSize="20dp"
+                android:layout_below="@+id/linearLayout9"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="42dp" />
+
+
+            <Button
+                android:id="@+id/save"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+
+                android:onClick="saveFunction_adv"
+                android:background="@drawable/check2"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+            <Button
+                android:id="@+id/cancel"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:onClick="goBack_adv"
+                android:background="@drawable/cancel"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+        </RelativeLayout>
+
+    </ViewFlipper>
+</FrameLayout>
+

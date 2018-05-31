@@ -32,6 +32,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:ellipsize="marquee"
+            android:textAlignment="center"
+            tools:ignore="MissingPrefix"
             android:popupBackground="@color/transparent_white_percent_90"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -42,33 +45,7 @@
 
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/linearLayout6"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/linearLayout7">
-        <TextView
-            android:id="@+id/device_id_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Devide : ID"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-        <Space
-            android:layout_width="10dp"
-            android:layout_height="wrap_content"
-            />
-        <Spinner
-            android:id="@+id/deviceID"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:popupBackground="@color/transparent_white_percent_90"
 
-            />
-    </LinearLayout>
 
 
 
@@ -302,10 +279,9 @@ android:layout_marginTop="30dp"
         android:layout_height="wrap_content"
         android:checked="true"
         android:text="Is active"
-        android:layout_below="@+id/linearLayout7"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="26dp" />
+        android:layout_marginTop="77dp"
+        android:layout_below="@+id/linearLayout6"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/save"

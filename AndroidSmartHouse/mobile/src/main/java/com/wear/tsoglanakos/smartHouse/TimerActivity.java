@@ -13,6 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.victor.loading.newton.NewtonCradleLoading;
+
 import org.apache.commons.lang3.StringUtils;
 
 import java.net.DatagramPacket;
@@ -25,6 +27,7 @@ public class TimerActivity extends AppCompatActivity {
     boolean isReceiving = true;
     private Button addNewTimerButton;
     LinearLayout timer_activity_linear_layout;
+    private NewtonCradleLoading newtonCradleLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +35,12 @@ public class TimerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_timer);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
+        newtonCradleLoading = (NewtonCradleLoading) findViewById(R.id.newton_cradle_loading);
+
         timer_activity_linear_layout = (LinearLayout) findViewById(R.id.timer_activity_linear_layout);
         sendDataToAll("getTimers");
-        toast("wait 3 seconds to receive the active Timers from device");
+      //  toast("wait 3 seconds to receive the active Timers from device");
+        startAnimation();
 
         addNewTimerButton = new Button(this);
         addNewTimerButton.setBackgroundResource(R.drawable.add_timer);
@@ -56,6 +62,90 @@ public class TimerActivity extends AppCompatActivity {
             sendData(text, inetAddress, AutoConnection.port);
         }
     }
+
+
+    Thread newtonAnimationThreadCancelation;
+    public void startAnimation(){
+
+
+
+        runOnUiThread(new Thread(){
+            @Override
+            public void run() {
+                newtonCradleLoading.setVisibility(View.VISIBLE);
+                final int maxCounter=3;
+                if (!newtonCradleLoading.isStart())
+                    newtonCradleLoading.start();
+
+                newtonAnimationThreadCancelation= new Thread(){
+                    @Override
+                    public void run() {
+                        try {
+
+                            Log.e("newhreadCancelation","started");
+                            int counter=0;
+
+                            while(counter<=maxCounter){
+
+                                sleep(1000);
+                                if (counter==2){
+
+
+                                    if (newtonCradleLoading.isStart()&&newtonAnimationThreadCancelation==this){
+                                        sendDataToAll("getTimers");
+                                        //     closeAnimation=false;
+
+                                    }
+
+
+
+                                }
+                                counter++;
+                            }
+                            if (newtonAnimationThreadCancelation!=this){//||closeAnimation
+                                return;
+                            }
+                            runOnUiThread(new Thread(){
+
+                                @Override
+                                public void run() {
+
+                                    if (newtonCradleLoading.isStart()){
+                                        newtonCradleLoading.stop();
+                                        toast("Error, try again by pressing reload button.");
+
+                                    }
+                                }
+                            });
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                };
+                newtonAnimationThreadCancelation.start();
+
+            }
+        });
+
+    }
+
+    public void stopAnimation(){
+
+        //   closeAnimation=true;
+        runOnUiThread(new Thread(){
+            @Override
+            public void run() {
+                if (newtonCradleLoading.isStart())
+                    newtonCradleLoading.stop();
+                newtonCradleLoading.setVisibility(View.INVISIBLE);
+            }
+        });
+
+    }
+
+
+
 
     @Override
     protected void onStart() {
@@ -103,7 +193,6 @@ public class TimerActivity extends AppCompatActivity {
     }
 
     public void refreshFunction(View v) {
-        toast("wait 3 seconds to receive data from device");
         if(clientSocket!=null)
         clientSocket.close();
                         clientSocket=null;
@@ -111,6 +200,8 @@ public class TimerActivity extends AppCompatActivity {
 
         timer_activity_linear_layout.removeAllViews();
         timer_activity_linear_layout.addView(addNewTimerButton);
+        startAnimation();
+
         sendDataToAll("getTimers");
     }
 
@@ -152,6 +243,9 @@ Thread thread;
                         Log.e("sentence", sentence);
 
                         if (sentence.startsWith("Timers:")) {
+
+                            stopAnimation();
+
                             runOnUiThread(new Thread(){
                                 @Override
                                 public void run() {

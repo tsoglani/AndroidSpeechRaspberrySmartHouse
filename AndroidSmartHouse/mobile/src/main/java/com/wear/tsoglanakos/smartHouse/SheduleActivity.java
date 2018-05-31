@@ -7,7 +7,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -17,7 +16,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -29,6 +27,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class SheduleActivity extends AppCompatActivity {
@@ -41,6 +40,7 @@ public class SheduleActivity extends AppCompatActivity {
     String daySelected="All",deviceSelected="All";
     int selectedDayId;
     boolean filtersAreLoaded=false;
+    boolean receivedSheduleCommands=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,12 +48,14 @@ public class SheduleActivity extends AppCompatActivity {
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
         init();
-
+        usedCommandIdAndDeviceID.removeAll(usedCommandIdAndDeviceID);
         newtonCradleLoading = (NewtonCradleLoading) findViewById(R.id.newton_cradle_loading);
-        shedule_activity_linear_layout.addView(addNewSheduleButton);
-        startAnimation();
-        sendDataToAll("getShedules");
         sendDataToAll("getAllCommandsOutput");
+        shedule_activity_linear_layout.addView(addNewSheduleButton);
+        sendDataToAll("getShedules");
+        startAnimation();
+
+        //  closeAnimation=false;
 
         // toast("wait 3 seconds to receive the data from device, if this doesn't work press refresh button.");
 //        sendDataToAll("removeShedule0");
@@ -67,11 +69,11 @@ public class SheduleActivity extends AppCompatActivity {
         days= (Spinner) findViewById(R.id.days);
 
 
-        String[] items = new String[] {"Day ","Not loaded.. try refresh button" };
+        String[] items = new String[] {"Day ","Not loaded.. try reload button" };
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                R.layout.spinner_item_view, items);
 
-        String[] items2 = new String[] {"Device ","Not loaded.. try refresh button" };
+        String[] items2 = new String[] {"Device ","Not loaded.. try reload button" };
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
                 R.layout.spinner_item_view, items2);
 
@@ -99,7 +101,9 @@ public class SheduleActivity extends AppCompatActivity {
         shedule_activity_linear_layout = (LinearLayout) findViewById(R.id.shedule_activity_linear_layout);
     }
 
-boolean isPressedAlready=false;
+//boolean isPressedAlready=false;
+
+    boolean firstDeviceRun=true,firstDaysRun=true;
     private void initAdapters(final String [] pinax2){
 
 
@@ -127,10 +131,17 @@ boolean isPressedAlready=false;
                         runOnUiThread(new Thread(){
                             @Override
                             public void run() {
-                                startAnimation();
-                                shedule_activity_linear_layout.removeAllViews();
-                                shedule_activity_linear_layout.addView(addNewSheduleButton);
-                                sendDataToAll("getShedules");
+                                if(!firstDeviceRun) {
+                                    startAnimation();
+                                    usedCommandIdAndDeviceID.removeAll(usedCommandIdAndDeviceID);
+                                    shedule_activity_linear_layout.removeAllViews();
+                                    receivedSheduleCommands=false;
+                                    shedule_activity_linear_layout.addView(addNewSheduleButton);
+                                    sendDataToAll("getShedules");
+//                                    closeAnimation=false;
+
+                                }
+                                firstDeviceRun=false;
 
                             }
                         });
@@ -165,7 +176,22 @@ boolean isPressedAlready=false;
 
                     daySelected=adapter3.getItem(position);
                 }
-                sendDataToAll("getShedules");
+                runOnUiThread(new Thread(){
+                    @Override
+                    public void run() {
+                        if(!firstDaysRun) {
+                            startAnimation();
+                            usedCommandIdAndDeviceID.removeAll(usedCommandIdAndDeviceID);
+                            shedule_activity_linear_layout.removeAllViews();
+                            receivedSheduleCommands=false;
+                            shedule_activity_linear_layout.addView(addNewSheduleButton);
+                            sendDataToAll("getShedules");
+                          //  closeAnimation=false;
+
+                        }firstDaysRun=false;
+
+                    }
+                });
 
             }
 
@@ -249,11 +275,15 @@ boolean isPressedAlready=false;
        startAnimation();
       //  newtonCradleLoading.start();
        // toast("wait 3 seconds to receive the data from device");
+        usedCommandIdAndDeviceID.removeAll(usedCommandIdAndDeviceID);
         shedule_activity_linear_layout.removeAllViews();
+        receivedSheduleCommands=false;
         shedule_activity_linear_layout.addView(addNewSheduleButton);
-        sendDataToAll("getShedules");
         if(!filtersAreLoaded)
-        sendDataToAll("getAllCommandsOutput");
+            sendDataToAll("getAllCommandsOutput");
+        sendDataToAll("getShedules");
+       // closeAnimation=false;
+
 
 
     }
@@ -265,6 +295,8 @@ boolean isPressedAlready=false;
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
+
+    private ArrayList<String> usedCommandIdAndDeviceID=new ArrayList<String>();
 
     private void receiver() {
         new Thread() {
@@ -283,12 +315,13 @@ boolean isPressedAlready=false;
                        stopAnimation();
 
                         if (sentence.startsWith("Shedules:")) {
-
+                            receivedSheduleCommands=true;
                             runOnUiThread(new Thread() {
                                 @Override
                                 public void run() {
-                                    shedule_activity_linear_layout.removeAllViews();
-                                    shedule_activity_linear_layout.addView(addNewSheduleButton);
+                                   // usedCommandIdAndDeviceID.removeAll(usedCommandIdAndDeviceID);
+                                 //   shedule_activity_linear_layout.removeAllViews();
+                                   // shedule_activity_linear_layout.addView(addNewSheduleButton);
 
                                 }
                             });
@@ -301,18 +334,13 @@ boolean isPressedAlready=false;
 
                             String deviceID = getDeviceID(sentence.split(AddSceduleActivity.COMMAND_SPLIT_STRING));
                             sentence = sentence.substring((AddSceduleActivity.DEVICE_ID + deviceID + AddSceduleActivity.COMMAND_SPLIT_STRING).length(), sentence.length());
-                            Log.e("sentence", sentence);
-
                             String[] incomeShedules = sentence.split(AddSceduleActivity.SHEDULE_SPLIT_STRING);
-
-                            Log.e("incomming sentence", sentence);
-
                             for (int i = 0; i < incomeShedules.length; i++) {
                                 try {
-                                    incomeShedules[i].replaceAll("CommandID:", "CommandID::");
+                                  //  incomeShedules[i].replaceAll("CommandID:", "CommandID::");
                                     String[] list = incomeShedules[i].split(AddSceduleActivity.COMMAND_SPLIT_STRING);
 
-                                    addTab(list, deviceID);
+                                    addTab(list, deviceID,sentence);
                                 }catch (Exception e){
                                     e.printStackTrace();
                                 }
@@ -384,7 +412,8 @@ boolean isPressedAlready=false;
 
 
                     } catch (SocketException e) {
-                     stopAnimation();
+                        e.printStackTrace();
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -395,7 +424,7 @@ boolean isPressedAlready=false;
     }
 
     Thread newtonAnimationThreadCancelation;
-
+//boolean closeAnimation=false;
     public void startAnimation(){
 
 
@@ -404,15 +433,39 @@ runOnUiThread(new Thread(){
     @Override
     public void run() {
         newtonCradleLoading.setVisibility(View.VISIBLE);
-
+final int maxCounter=3;
         if (!newtonCradleLoading.isStart())
         newtonCradleLoading.start();
+
         newtonAnimationThreadCancelation= new Thread(){
             @Override
             public void run() {
                 try {
-                    sleep(3000);
-                    if (newtonAnimationThreadCancelation!=this){
+
+                    Log.e("newhreadCancelation","started");
+                    int counter=0;
+
+                    while(counter<=maxCounter){
+
+                    sleep(1000);
+                        if (counter==2){
+
+
+                            if (!receivedSheduleCommands&&newtonCradleLoading.isStart()&&newtonAnimationThreadCancelation==this){
+                                sendDataToAll("getShedules");
+                           //     closeAnimation=false;
+
+                            }  if(!filtersAreLoaded&&newtonAnimationThreadCancelation==this&&newtonCradleLoading.isStart()){
+                                sendDataToAll("getAllCommandsOutput");
+                              //  closeAnimation=false;
+                            }
+
+
+
+                        }
+                        counter++;
+                    }
+                    if (newtonAnimationThreadCancelation!=this){//||closeAnimation
                         return;
                     }
                     runOnUiThread(new Thread(){
@@ -422,7 +475,7 @@ runOnUiThread(new Thread(){
 
                             if (newtonCradleLoading.isStart()){
                                 newtonCradleLoading.stop();
-                                toast("Try again.");
+                                toast("Error, try again by pressing reload button.");
 
                             }
                         }
@@ -441,6 +494,10 @@ runOnUiThread(new Thread(){
     }
 
     public void stopAnimation(){
+        if (!receivedSheduleCommands&&!filtersAreLoaded){
+            return;
+        }
+     //   closeAnimation=true;
         runOnUiThread(new Thread(){
             @Override
             public void run() {
@@ -453,10 +510,12 @@ runOnUiThread(new Thread(){
     }
 
 
+
+
     private void checkToDelete(String deviceID, String commandID) {
         for (int i = 0; i < shedule_activity_linear_layout.getChildCount(); i++) {
             View child = shedule_activity_linear_layout.getChildAt(i);
-            Log.e(".getChildAt(i)", shedule_activity_linear_layout.getChildAt(i).toString());
+           // Log.e(".getChildAt(i)", shedule_activity_linear_layout.getChildAt(i).toString());
             if (child instanceof RelativeLayout) {
                 final RelativeLayout rl = (RelativeLayout) child;
                 TextView device_id = (TextView) rl.findViewById(R.id.device_id);
@@ -504,7 +563,7 @@ runOnUiThread(new Thread(){
         return dp * context.getResources().getDisplayMetrics().density;
     }
 
-    private void addTab(final String[] list, final String serverDeviceID) {
+    private void addTab(final String[] list, final String serverDeviceID,final String seq) {
 
 
         final RelativeLayout rl = (RelativeLayout) getLayoutInflater().inflate(R.layout.shedule_tab, null);
@@ -744,6 +803,7 @@ startAnimation();
                         isActive = getIsActive(list);
                         isWeekly = getIsWeekly(list);
                         commandText = getCommandText(list);
+
                         return null;
                     }
 
@@ -759,7 +819,7 @@ startAnimation();
                             isFilterLetItContinue=false;
                         }
 
-                        Log.e("deviceSelected",""+isFilterLetItContinue);
+                     //   Log.e("deviceSelected",""+isFilterLetItContinue);
                         if (isFilterLetItContinue){
                             if (daySelected.equals("All")){
                                 isFilterLetItContinue=true;
@@ -771,14 +831,20 @@ startAnimation();
 
                         }
 
-                        Log.e("daysString"+"::"+selectedDayId+" on---",daysString);
 
 
 
-                        if (!isFilterLetItContinue){
+                        if (!isFilterLetItContinue||usedCommandIdAndDeviceID.contains("deviceID:"+serverDeviceID+"CommandID"+commandID)){
 
-    return;
-}
+                         //   sendForUpdateSingleShedule(serverDeviceID, commandID, commandText,AddSceduleActivity.IS_ACTIVE,Boolean.toString(!active.isChecked()));
+                           // sendForUpdateShedule(serverDeviceID,commandID,commandText,daysString,timeString,isWeekly,isActive);
+
+onUpdated(seq,serverDeviceID);
+                            return;
+                       }
+
+
+                        usedCommandIdAndDeviceID.add("deviceID:"+serverDeviceID+"CommandID"+commandID);
 
                         shedule_activity_linear_layout.addView(rl);
                         rl.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) pxFromDp(SheduleActivity.this, 150)));
@@ -811,6 +877,8 @@ startAnimation();
 
 
     private void changeDayColor(View v, String daysString, int day) {
+
+
         if (daysString.contains(Integer.toString(day)+" on")) {
             v.setBackgroundColor(getResources().getColor(R.color.green));
         } else   if (daysString.contains(Integer.toString(day)+" off")) {
@@ -924,50 +992,44 @@ startAnimation();
 
     private String getDeviceID(String[] list) {
         String out = list[0];
-        Log.e("getDeviceID", out);
+       // Log.e("getDeviceID", out);
         return out.substring(AddSceduleActivity.DEVICE_ID.length(), out.length());
     }
 
     private String getCommandID(String[] list) {
         String out = list[0];
-        Log.e("getCommandID", out);
         return out.substring(AddSceduleActivity.COMMAND_ID.length(), out.length());
     }
 
-    private String getCommandID2(String[] list) {
-        String out = list[0];
-        Log.e("getCommandID", out);
-        return out.substring("CommandID::".length(), out.length());
-    }
+
     private String getCommandText(String[] list) {
         String out = list[1];
-        Log.e("getCommandID", out);
         return out.substring(AddSceduleActivity.COMMAND_TEXT_STRING.length(), out.length());
     }
 
     private String getDays(String[] list) {
         String out = list[2];
-        Log.e("getDays", out);
+     //  Log.e("getDays", out);
 
         return out.substring(AddSceduleActivity.DAYS_STRING.length(), out.length());
     }
 
     private String getTime(String[] list) {
         String out = list[3];
-        Log.e("getTime", out);
+      //  Log.e("getTime", out);
 
         return out.substring("ActiveTime:".length(), out.length());
     }
 
     private String getIsWeekly(String[] list) {
         String out = list[4];
-        Log.e("getIsWeekly", out);
+       // Log.e("getIsWeekly", out);
         return out.substring(AddSceduleActivity.IS_WEEKLY.length(), out.length());
     }
 
     private String getIsActive(String[] list) {
         String out = list[5];
-        Log.e("getIsActive", out);
+     //   Log.e("getIsActive", out);
         return out.substring(AddSceduleActivity.IS_ACTIVE.length(), out.length());
     }
 
